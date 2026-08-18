@@ -39,7 +39,7 @@ The `tiktok-developers-site-verification=*.txt` files at the repo root are
 TikTok's URL-property verification files. Leave them where they are.
 
 The implementation lives in
-[dedzedofficial/CubeZ](https://github.com/dedzedofficial/CubeZ) —
+[dedzedofficial/CubeZ-Source](https://github.com/dedzedofficial/CubeZ-Source) —
 `CubeZ_Poster/poster/publishers/tiktok.py` (upload) and `tiktok_auth.py`
 (Login Kit). If the scopes or the flow change there, change them here too.
 
