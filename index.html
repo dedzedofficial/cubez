@@ -64,7 +64,7 @@
 
         <h2>How the account is connected</h2>
         <ol>
-          <li>The operator runs <code>python -m poster tiktok-login</code> in their own copy of CubeZ, which opens TikTok's authorisation page.</li>
+          <li>The operator runs <code>python -m poster auth-tiktok</code> in their own copy of CubeZ, which opens TikTok's authorisation page.</li>
           <li>They approve the request on TikTok's own consent screen.</li>
           <li>TikTok returns them to <a href="auth/tiktok/">this site's callback page</a>, which displays the one-time authorisation code and sends it nowhere.</li>
           <li>They paste the code back into CubeZ, which exchanges it with TikTok for an access token, reads the account's display name with <code>user.info.basic</code> to confirm the right account is connected, and saves the tokens to a file on their own machine.</li>
