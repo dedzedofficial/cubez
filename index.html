@@ -60,7 +60,7 @@
           <li><strong><code>user.info.basic</code></strong> &mdash; called once, immediately after sign-in, so CubeZ can display which TikTok account is connected. It reads the open id and display name of the operator's own account and nothing else.</li>
           <li><strong><code>video.publish</code></strong> &mdash; called when the operator's new short-form video is ready. CubeZ uploads that video file to the operator's own account through the Content Posting API's <code>FILE_UPLOAD</code> flow, with a caption built from the video's own title.</li>
         </ul>
-        <p>CubeZ does not request <code>video.upload</code>, and makes no other TikTok API call of any kind.</p>
+        <p>The app's TikTok registration also lists <code>video.upload</code>, the draft-posting scope. TikTok's Content Posting API includes it by default and the developer portal offers no way to remove it. CubeZ does not use it: its sign-in request asks only for <code>user.info.basic</code> and <code>video.publish</code>, and it never calls the draft inbox endpoint. Beyond the two calls above, CubeZ makes no TikTok API call of any kind.</p>
 
         <h2>How the account is connected</h2>
         <ol>
