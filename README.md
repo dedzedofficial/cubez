@@ -1,43 +1,49 @@
-# FISH HWB — GitHub Pages site
+# CubeZ — website
 
-A static recreation of fishhwb.weebly.com, restyled around a "descending through
-the ocean" concept (the left-hand depth gauge tracks scroll position through
-Surface → Twilight Zone → Midnight Zone → The Abyss).
+The public site for **CubeZ**, the local-first creator toolkit that edits,
+captions and publishes short-form video to its operator's own accounts. This is
+the site named in the CubeZ TikTok developer application, so the pages here have
+to keep saying exactly what the software actually does.
 
-## Files
+Live at <https://dedzedofficial.github.io/cubez/>.
 
-- `index.html` — home page (hero, founder card, Twitch + Discord embeds, latest content)
-- `dzofo.html` — the founder/about page (Ded Zed / Our Fish Overlord bio, contact form)
-- `terms.html` / `privacy.html` — your CubeZ Terms of Service and Privacy Policy, linked from the footer
-- `css/style.css`, `js/main.js` — shared styling and the ambient/depth-gauge script
+## Pages
 
-## Publish it
+- `index.html` — the CubeZ home page. Browser title is `CubeZ`, and it describes
+  the TikTok integration scope by scope.
+- `privacy-policy/` — Privacy Policy.
+- `terms-of-service/` — Terms of Service.
+- `auth/tiktok/` — the TikTok Login Kit callback. TikTok redirects here after the
+  operator approves CubeZ; the page shows the one-time authorisation code so the
+  operator can paste it into their own copy of CubeZ. It is static, sends the
+  code nowhere, and has no server behind it.
+- `fishhwb.html`, `dzofo.html` — the FISH HWB pages this repo also hosts, kept
+  off the CubeZ pages' navigation so the CubeZ site reads as one product.
+- `privacy.html`, `terms.html`, `cubez.html` — redirect stubs for the URLs used
+  before the site was restructured.
 
-1. Create a new GitHub repo (e.g. `fish-hwb`, or `yourname.github.io` if you want it at the root domain).
-2. Push these files to the repo root (or to a `docs/` folder — just point Pages at whichever you use).
-3. In the repo: **Settings → Pages → Source**, select the branch/folder, save.
-4. Your site will be live at `https://<username>.github.io/<repo>/` (or `https://<username>.github.io/` for a user site).
+## TikTok
 
-## Things to swap in
+The developer application must stay in step with these pages:
 
-- **Founder photo**: replace the "FOUNDER PHOTO" circle in `index.html` and `dzofo.html`
-  with a real `<img>` tag pointing at an image you add to `assets/images/`.
-- **Latest YouTube upload**: in `index.html`, replace the placeholder `<span>` in the
-  first `.thumb` card with `<iframe src="https://www.youtube.com/embed/VIDEO_ID">`.
-- **Latest Twitch clip**: same card pattern, using
-  `https://clips.twitch.tv/embed?clip=CLIP_SLUG&parent=YOURDOMAIN`.
-- **Twitch player parent**: already handled automatically — the page sets
-  `parent=` to whatever domain it's served from, so it works on GitHub Pages
-  without edits. If you later add a custom domain, this keeps working too.
-- **Discord widget**: currently using server ID `1186424320428363887` (from the
-  original site). Change it in `index.html` if needed — server widgets must be
-  enabled in Discord's Server Settings → Widget.
-- **Contact form**: it's static HTML, so GitHub Pages can't process submissions
-  on its own. Point the `<form>` in `dzofo.html` at a service like Formspree or
-  Getform, or swap it for a `mailto:` link.
+| TikTok field | Value |
+|---|---|
+| App name | `CubeZ` |
+| Website URL | `https://dedzedofficial.github.io/cubez/` |
+| Redirect URI | `https://dedzedofficial.github.io/cubez/auth/tiktok/` |
+| Privacy Policy URL | `https://dedzedofficial.github.io/cubez/privacy-policy/` |
+| Terms of Service URL | `https://dedzedofficial.github.io/cubez/terms-of-service/` |
+| Scopes | `user.info.basic`, `video.publish` |
 
-## Notes
+The `tiktok-developers-site-verification=*.txt` files at the repo root are
+TikTok's URL-property verification files. Leave them where they are.
 
-- Fonts (Space Grotesk / IBM Plex Sans / IBM Plex Mono) load from Google Fonts via CDN.
-- Colors, type, and the depth-gauge concept live in `css/style.css` as CSS custom properties near the top — tweak `--glow` / `--lure` to retheme.
-- Reduced-motion users automatically get the particles and gauge animation turned off.
+The implementation lives in
+[dedzedofficial/CubeZ](https://github.com/dedzedofficial/CubeZ) —
+`CubeZ_Poster/poster/publishers/tiktok.py` (upload) and `tiktok_auth.py`
+(Login Kit). If the scopes or the flow change there, change them here too.
+
+## Publishing
+
+GitHub Pages serves `main` at the repo root; `.github/workflows/deploy.yml`
+handles it. Fonts load from Google Fonts, everything else is local.

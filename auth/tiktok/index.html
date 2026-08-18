@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CubeZ</title>
+<meta name="description" content="CubeZ — TikTok authorisation callback. Returns the authorisation code to the operator's own copy of CubeZ.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../../assets/cubez-favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="container">
+    <div class="wordmark">Cube<span>Z</span></div>
+    <nav>
+      <a href="../../">CubeZ</a>
+      <a href="../../privacy-policy/">Privacy</a>
+      <a href="../../terms-of-service/">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <article class="legal">
+      <div class="eyebrow">TikTok authorisation</div>
+      <h1 id="heading">Connecting your TikTok account</h1>
+
+      <p id="blurb">TikTok sends you here after you approve CubeZ. The one-time
+      authorisation code below goes back into CubeZ on your own machine, which
+      exchanges it for an access token. The code is never sent anywhere by this
+      page &mdash; it only ever exists in your browser's address bar and on your
+      own computer.</p>
+
+      <pre id="code" style="padding:16px; overflow-x:auto; user-select:all;">Reading the authorisation code&hellip;</pre>
+
+      <p id="next">Copy that code, return to CubeZ, and paste it at the
+      <code>Paste the code:</code> prompt left open by
+      <code>python -m poster tiktok-login</code>.</p>
+
+      <p>Nothing else happens on this page. It has no analytics, no cookies and
+      no server: it is a static page on GitHub Pages that reads the query string
+      your browser already has. See the <a href="../../privacy-policy/">Privacy Policy</a>.</p>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="copyright">CubeZ</div>
+    <div class="legal-links">
+      <a href="../../terms-of-service/">Terms of Service</a>
+      <a href="../../privacy-policy/">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // TikTok redirects here with ?code=...&state=... on success, or
+  // ?error=...&error_description=... if the operator declined.
+  var params = new URLSearchParams(window.location.search);
+  var code = params.get('code');
+  var error = params.get('error');
+  var box = document.getElementById('code');
+
+  if (code) {
+    // The code arrives URL-encoded; CubeZ wants the raw value.
+    box.textContent = decodeURIComponent(code);
+  } else if (error) {
+    document.getElementById('heading').textContent = 'TikTok did not authorise CubeZ';
+    document.getElementById('blurb').textContent =
+      'No account was connected, and CubeZ received nothing. You can close this tab and try again.';
+    document.getElementById('next').textContent = '';
+    box.textContent = error + ': ' + (params.get('error_description') || 'no further detail given');
+  } else {
+    document.getElementById('heading').textContent = 'Nothing to authorise';
+    document.getElementById('blurb').textContent =
+      'This page is the callback CubeZ uses for TikTok sign-in. Opened on its own, ' +
+      'it has no code to show. Start the connection from CubeZ instead.';
+    document.getElementById('next').textContent = '';
+    box.textContent = 'No authorisation code in this URL.';
+  }
+</script>
+
+</body>
+</html>
